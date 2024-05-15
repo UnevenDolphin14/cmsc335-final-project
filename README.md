@@ -1,8 +1,8 @@
 # cmsc335-final-project
 Final Project for CMSC 335
-Submitted by: Rose Smith (directory id: superterp)
-Group Members: Rose Smith (superterp), Peter Santos (pmegaterp)
-App Description:Allow users to find images, songs of an author and store the results.
-YouTube Video Link: https://www.youtube.com/MyAmazingAPP
-APIs:VideoApp (http:notrealvideoapp.what), 
-Contact Email: superterp@notreal.address.what
+<p><strong>Submitted by:</strong> Sahil Patel (directory id: spatel88)<br>
+<strong>Group Members:</strong> Daniel Dergham (ddergham), Liam Gordon (pmegaterp), Sahil Patel (spatel88)<br>
+<strong>App Description:</strong> Allows a user to purchase &amp; sell a stock and view their portfolio.<br>
+<strong>YouTube Video Link:</strong> <a href="https://www.youtube.com/MyAmazingAPP">https://www.youtube.com/MyAmazingAPP</a><br>
+<strong>APIs:</strong> FinnHub (<a href="https://finnhub.io/docs/api/symbol-search">https://finnhub.io/docs/api/symbol-search</a>)<br>
+<strong>Contact Email:</strong> spatel88@terpmail.umd.edu</p>
