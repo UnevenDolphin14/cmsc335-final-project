@@ -1,11 +1,8 @@
 # cmsc335-final-project
 Final Project for CMSC 335
-
-
-
-Who Submitted the Project in the Submit Server - Name and directory id of group member that uploaded the application to the submit server.
-Group Members - Add the name and directory id (in parentheses) of each member of your team. If you are working by yourself, add your name and directory id too.
-App Description - One or two line description.
-YouTube Video Demo Link - Link to a YouTube video that provides a demo of your application. This video is very important. We will not grade a project unless a video is provided. The video does not need to have audio (narration).
-APIs Information - Names and link to API(s) used by your application.
-Contact Email - Which group member should we contact if we have questions.
+<p><strong>Submitted by:</strong> Sahil Patel (directory id: spatel88)<br>
+<strong>Group Members:</strong> Daniel Dergham (ddergham), Liam Gordon (pmegaterp), Sahil Patel (spatel88)<br>
+<strong>App Description:</strong> Allows a user to purchase &amp; sell a stock and view their portfolio.<br>
+<strong>YouTube Video Link:</strong> <a href="https://www.youtube.com/MyAmazingAPP">https://www.youtube.com/MyAmazingAPP</a><br>
+<strong>APIs:</strong> FinnHub (<a href="https://finnhub.io/docs/api/symbol-search">https://finnhub.io/docs/api/symbol-search</a>)<br>
+<strong>Contact Email:</strong> spatel88@terpmail.umd.edu</p>
