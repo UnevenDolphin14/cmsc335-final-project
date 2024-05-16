@@ -73,3 +73,24 @@ app.get("/sellShare", (request, response) => {
     response.render("sellShare", variables);
 });
 
+app.post("/buyShare", async (request, response) => {
+    let {companyName, quantity} = request.body;
+    const variables = {
+        companyName: companyName,
+        quantity: quantity
+    }
+    let purchaseRequest = {
+        companyName: companyName,
+        quantity: quantity
+    }
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    try {
+        await client.connect();
+        await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(purchaseRequest);
+    } catch (e) {
+        console.error(e);
+    } finally {
+        await client.close();
+    }
+    response.render("buyShareReview", variables);
+});
