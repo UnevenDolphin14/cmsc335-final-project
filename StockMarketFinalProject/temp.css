@@ -1,6 +1,8 @@
+/* Im using colors from a random site that says u should use these for  a stock market ui lmao */
+
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #f0f8ff; /* AliceBlue */
     margin: 0;
     padding: 0;
     display: flex;
@@ -10,12 +12,12 @@ body {
 }
 
 h1 {
-    color: #333;
+    color: #4682b4; /* SteelBlue */
     text-align: center;
 }
 
 form {
-    background: #fff;
+    background: #ffffff; /* White */
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -40,7 +42,7 @@ input[type="text"], input[type="reset"], input[type="submit"] {
 }
 
 input[type="submit"] {
-    background-color: #4CAF50;
+    background-color: #4CAF50; /* Green */
     color: white;
     cursor: pointer;
 }
@@ -50,7 +52,7 @@ input[type="submit"]:hover {
 }
 
 input[type="reset"] {
-    background-color: #f44336;
+    background-color: #f44336; /* Red */
     color: white;
     cursor: pointer;
 }
@@ -63,7 +65,7 @@ a {
     display: block;
     text-align: center;
     margin-top: 20px;
-    color: #333;
+    color: #333; /* Dark Gray */
     text-decoration: none;
 }
 
