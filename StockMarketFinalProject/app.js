@@ -14,6 +14,7 @@ process.stdin.setEncoding("utf8");
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
+app.use(express.static(__dirname));
 
 if (process.argv.length != 3) {
     console.error("Usage app.js jsonFile");
