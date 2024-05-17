@@ -1,74 +1,16 @@
-/* Im using colors from a random site that says u should use these for  a stock market ui lmao */
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f8ff; /* AliceBlue */
-    margin: 0;
-    padding: 0;
+    background-color: #f0f8ff; 
+    margin: 0; 
+    padding: 0; 
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    height: 100vh;
+    height: 100vh; 
 }
 
 h1 {
-    color: #4682b4; /* SteelBlue */
-    text-align: center;
-}
-
-form {
-    background: #ffffff; /* White */
-    padding: 20px;
-    border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-fieldset {
-    border: none;
-    margin-bottom: 10px;
-}
-
-label {
-    display: block;
-    margin-bottom: 10px;
-}
-
-input[type="text"], input[type="reset"], input[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-}
-
-input[type="submit"] {
-    background-color: #4CAF50; /* Green */
-    color: white;
-    cursor: pointer;
-}
-
-input[type="submit"]:hover {
-    background-color: #45a049;
-}
-
-input[type="reset"] {
-    background-color: #f44336; /* Red */
-    color: white;
-    cursor: pointer;
-}
-
-input[type="reset"]:hover {
-    background-color: #e53935;
-}
-
-a {
-    display: block;
-    text-align: center;
-    margin-top: 20px;
-    color: #333; /* Dark Gray */
-    text-decoration: none;
-}
-
-a:hover {
-    text-decoration: underline;
+    color: #4682b4; 
+    text-align: center; 
+    margin: 20px 0; 
 }
