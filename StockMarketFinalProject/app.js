@@ -74,8 +74,73 @@ app.get("/sellShare", (request, response) => {
 });
 
 
-
 app.post("/buyShare", async (request, response) => {
+    let { companyName, quantity } = request.body;
+    quantity = parseInt(quantity);
+    
+    // Create the purchaseRequest object
+    let purchaseRequest = {
+        companyName: companyName,
+        quantity: quantity
+    };
+
+    // Fetch cost from an API or wherever it's coming from
+    finnhubClient.quote(companyName, async (error, data, response) => {
+        if (error) {
+            console.error('Error fetching cost:', error);
+            response.status(500).send('Error fetching cost');
+            return;
+        }
+
+        // Assuming 'c' is the property for cost in the data object
+        let cost = data.c; 
+        // Render the page after fetching the cost
+        renderPage(cost);
+    });
+
+    async function renderPage(cost) {
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+        try {
+            await client.connect();
+            console.log('Connected to MongoDB');
+            
+            const database = client.db(databaseAndCollection.db);
+            const collection = database.collection(databaseAndCollection.collection);
+            
+            // Check if a document with the same companyName exists in the collection
+            const existingDocument = await collection.findOne({ companyName: companyName });
+
+            if (existingDocument) {
+                // If a document with the same companyName exists, update the quantity
+                await collection.updateOne(
+                    { companyName: companyName },
+                    { $inc: { quantity: quantity } } // Increment the quantity by the new quantity
+                );
+            } else {
+                // If no document with the same companyName exists, insert a new document
+                await collection.insertOne(purchaseRequest);
+            }
+
+            // Pass cost, companyName, and quantity to the render function
+            response.render("buyShareReview", { companyName, quantity, cost });
+        } catch (e) {
+            console.error('Error:', e);
+            response.status(500).send('Error processing request');
+        } finally {
+            await client.close();
+        }
+    }
+});
+
+
+
+
+
+
+
+
+/* app.post("/buyShare", async (request, response) => {
     let { companyName, quantity } = request.body;
     quantity = parseInt(quantity);
     
@@ -110,7 +175,7 @@ app.post("/buyShare", async (request, response) => {
             await client.close();
         }
     }
-});
+}); */
 
 
 

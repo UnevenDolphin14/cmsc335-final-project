@@ -1,13 +1,69 @@
 <html>
-<head>
+    <head>
         <link rel="stylesheet" type="text/css" href="/temp.css">
+        <style>
+            body {
+                background-color: #f0f8ff; 
+                margin: 0; 
+                padding: 0;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                font-family: Arial, sans-serif;
+            }
+            /* thsi for the center box */
+            .container {
+                background-color: #ffffff;
+                padding: 40px;
+                border-radius: 10px;
+                box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+                text-align: center;
+            }
+            /* this for the welcome to portfolio */
+            h1 {
+                color: #4682b4; 
+                margin-bottom: 20px;
+                font-size: 2.5em;
+            }
+            ul {
+                list-style: none;
+                padding: 0;
+                margin: 0;
+            }
+            li {
+                margin: 15px 0;
+            }
+            /* this for the button */
+            .button {
+                display: inline-block;
+                padding: 10px 20px;
+                font-size: 1.2em;
+                font-weight: bold;
+    
+                color: #ffffff;
+                background-color: #3399ff; 
+                border: none;
+                border-radius: 5px;
+                text-decoration: none;
+                transition: background-color 0.3s;
+                cursor: pointer;
+            }
+            /* this for the button color */
+            .button:hover {
+                background-color: #66b3ff; 
+            }
+        </style>
     </head>
+
     <body>
-        <h1>Welcome to your Portfolio</h1>
-        <ul>
-            <li>Click <a href="/buyShare">here</a> to buy shares</li>
-            <li>Click <a href="/sellShare">here</a> to sell shares</li>
-            <li>Click <a href="/viewPortfolio">here</a> to view your portfolio</li>
-        </ul>
+        <div class="container">
+            <h1>Welcome to your Portfolio</h1>
+            <ul>
+                <li>Click <a href="/buyShare">here</a> to buy shares</li>
+                <li>Click <a href="/sellShare">here</a> to sell shares</li>
+                <li>Click <a href="/viewPortfolio">here</a> to view your portfolio</li>
+            </ul>
+        </div>
     </body>
 </html>
