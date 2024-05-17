@@ -6,8 +6,11 @@
         <h1>Buy shares</h1>
         <form action="<%- link %>" method="post">
             <fieldset>
-                <label>Company Ticker Name (example: APPL): <input type="text" name="companyName" id="companyName"></label>
-                <label>Quantity: <input type="text" name="quantity" id="quantity"></label><br>
+                <div id="buyDisplay">
+                    <label>Company Ticker Name (example: APPL): <input type="text" name="companyName" id="companyName"></label>
+                    <label>Quantity: <input type="text" name="quantity" id="quantity"></label><br>
+                    <label><input type="text" name="cost" id="cost"></label>
+                </div>
             </fieldset>
 
             <input type="reset" value="Reset" name="reset"/>  

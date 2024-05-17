@@ -7,12 +7,14 @@ const finnhub = require('finnhub');
 const api_key = finnhub.ApiClient.instance.authentications['api_key'];
 api_key.apiKey = "Cp2ges1r01qh00mjb9ugcp2ges1r01qh00mjb9v0";
 require("dotenv").config({ path: path.resolve(__dirname, 'credentials/.env') }) 
-const userName = process.env.MONGO_DB_USERNAME;
-const password = process.env.MONGO_DB_PASSWORD;
+const USERNAME = process.env.MONGO_DB_USERNAME;
+const PASSWORD = process.env.MONGO_DB_PASSWORD;
 const {MongoClient, ServerApiVersion} = require('mongodb');
 const databaseAndCollection = {db: process.env.MONGO_DB_NAME, collection:process.env.MONGO_COLLECTION};
 const uri = 'mongodb+srv://liamgedeon1:CQ59EYtA@cluster0.l3sf3ic.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0';
 const finnhubClient = new finnhub.DefaultApi();
+const { ObjectId } = require('mongodb');
+
 
 
 process.stdin.setEncoding("utf8");
@@ -31,9 +33,7 @@ app.listen(portNumber);
 console.log(`Web server started and running at http://localhost:${portNumber}`);
 const prompt = "Type stop to shutdown the server:";
 console.log(prompt);
-finnhubClient.symbolSearch('AAPL', (error, data, response) => {
-    console.log(data)
-});
+
 
 process.stdin.on('readable', () => {
 
@@ -73,24 +73,76 @@ app.get("/sellShare", (request, response) => {
     response.render("sellShare", variables);
 });
 
+
+
 app.post("/buyShare", async (request, response) => {
-    let {companyName, quantity} = request.body;
-    const variables = {
+    let { companyName, quantity } = request.body;
+    quantity = parseInt(quantity);
+    
+    let purchaseRequest = {
         companyName: companyName,
         quantity: quantity
+    };
+
+    // Fetch cost from an API or wherever it's coming from
+    finnhubClient.quote(companyName, (error, data, response) => {
+        let cost = data.c; // Assuming 'c' is the property for cost in the data object
+        renderPage(cost);
+    });
+
+    async function renderPage(cost) {
+        const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+        try {
+            await client.connect();
+            console.log('Connected to MongoDB');
+            
+            const database = client.db(databaseAndCollection.db);
+            const collection = database.collection(databaseAndCollection.collection);
+            
+            const result = await collection.insertOne(purchaseRequest);
+            
+            // Pass cost, companyName, and quantity to the render function
+            response.render("buyShareReview", { companyName, quantity, cost });
+        } catch (e) {
+            console.error(e);
+        } finally {
+            await client.close();
+        }
     }
+});
+
+
+
+
+
+/*app.post("/buyShare", async (request, response) => {
+    let {companyName, quantity} = request.body;
+    quantity = parseInt(quantity);
+    
     let purchaseRequest = {
         companyName: companyName,
         quantity: quantity
     }
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+
+    finnhubClient.quote(companyName, (error, data, response) => {
+        let cost = data.c;
+    });
+
     try {
         await client.connect();
-        await client.db(databaseAndCollection.db).collection(databaseAndCollection.collection).insertOne(purchaseRequest);
+        console.log('Connected to MongoDB');
+        
+        const database = client.db(databaseAndCollection.db);
+        const collection = database.collection(databaseAndCollection.collection);
+        
+        const result = await collection.insertOne(purchaseRequest);
+        
     } catch (e) {
         console.error(e);
     } finally {
         await client.close();
     }
-    response.render("buyShareReview", variables);
-});
+    response.render("buyShareReview", { companyName, quantity });
+}); */
