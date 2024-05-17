@@ -21,10 +21,10 @@ process.stdin.setEncoding("utf8");
 app.set("views", path.resolve(__dirname, "templates"));
 app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
-app.use(express.static(__dirname));
+app.use(express.static(__dirname)); 
 
 if (process.argv.length != 3) {
-    console.error("Usage app.js jsonFile");
+    console.error("Usage app.js portNumber");
     process.exit(0);
 }
 
@@ -36,13 +36,10 @@ console.log(prompt);
 
 
 process.stdin.on('readable', () => {
-
     let dataIn = process.stdin.read();
 
     if(dataIn !== null){
-
         const command = dataIn.trim();
-
         if(command === "stop"){
             console.log("Shutting Down Server");
             process.exit(0);
@@ -52,7 +49,6 @@ process.stdin.on('readable', () => {
    		    process.stdin.resume();
         }
     }
-
 });
 
 app.get("/", (request, response) => {
@@ -78,7 +74,6 @@ app.post("/buyShare", async (request, response) => {
     let { companyName, quantity } = request.body;
     quantity = parseInt(quantity);
     
-    // Create the purchaseRequest object
     let purchaseRequest = {
         companyName: companyName,
         quantity: quantity
@@ -87,7 +82,6 @@ app.post("/buyShare", async (request, response) => {
 
     finnhubClient.quote(companyName, async (error, data, response) => {
         if (error) {
-            console.error('Error fetching cost:', error);
             response.status(500).send('Error fetching cost');
             return;
         }
@@ -100,7 +94,6 @@ app.post("/buyShare", async (request, response) => {
 
         try {
             await client.connect();
-            console.log('Connected to MongoDB');
             
             const database = client.db(databaseAndCollection.db);
             const collection = database.collection(databaseAndCollection.collection);
@@ -118,7 +111,6 @@ app.post("/buyShare", async (request, response) => {
 
             response.render("buyShareReview", { companyName, quantity, cost });
         } catch (e) {
-            console.error('Error:', e);
             response.status(500).send('Error processing request');
         } finally {
             await client.close();
@@ -133,23 +125,18 @@ app.post("/sellShare", async (request, response) => {
     let { companyName, quantity } = request.body;
     quantity = parseInt(quantity);
     
-    // Create the purchaseRequest object
     let sellRequest = {
         companyName: companyName,
         quantity: quantity
     };
 
-    // Fetch cost from an API or wherever it's coming from
     finnhubClient.quote(companyName, async (error, data, response) => {
         if (error) {
-            console.error('Error fetching cost:', error);
             response.status(500).send('Error fetching cost');
             return;
         }
 
-        // Assuming 'c' is the property for cost in the data object
         let cost = data.c; 
-        // Render the page after fetching the cost
         renderPage(cost);
     });
 
@@ -158,21 +145,16 @@ app.post("/sellShare", async (request, response) => {
 
         try {
             await client.connect();
-            console.log('Connected to MongoDB');
             
             const database = client.db(databaseAndCollection.db);
             const collection = database.collection(databaseAndCollection.collection);
             
-            // Find the document with the same companyName in the collection
             const existingDocument = await collection.findOne({ companyName: companyName });
 
             if (existingDocument) {
-                // If a document with the same companyName exists
-                // If the new quantity is 0, delete the document
                 if (quantity === 0) {
                     await collection.deleteOne({ companyName: companyName });
                 } else {
-                    // If the new quantity is greater than 0, update the quantity
                     await collection.updateOne(
                         { companyName: companyName },
                         { $set: { quantity: quantity } }
@@ -185,7 +167,6 @@ app.post("/sellShare", async (request, response) => {
             }
             response.render("sellShareReview", { companyName, quantity, cost });
         } catch (e) {
-            console.error('Error:', e);
             response.status(500).send('Error processing request');
         } finally {
             await client.close();
