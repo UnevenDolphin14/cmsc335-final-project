@@ -116,33 +116,3 @@ app.post("/buyShare", async (request, response) => {
 
 
 
-/*app.post("/buyShare", async (request, response) => {
-    let {companyName, quantity} = request.body;
-    quantity = parseInt(quantity);
-    
-    let purchaseRequest = {
-        companyName: companyName,
-        quantity: quantity
-    }
-    const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
-
-    finnhubClient.quote(companyName, (error, data, response) => {
-        let cost = data.c;
-    });
-
-    try {
-        await client.connect();
-        console.log('Connected to MongoDB');
-        
-        const database = client.db(databaseAndCollection.db);
-        const collection = database.collection(databaseAndCollection.collection);
-        
-        const result = await collection.insertOne(purchaseRequest);
-        
-    } catch (e) {
-        console.error(e);
-    } finally {
-        await client.close();
-    }
-    response.render("buyShareReview", { companyName, quantity });
-}); */
