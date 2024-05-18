@@ -23,14 +23,9 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:false}));
 app.use(express.static(__dirname)); 
 
-if (process.argv.length != 3) {
-    console.error("Usage app.js portNumber");
-    process.exit(0);
-}
 
-const portNumber = process.argv[2];
+const portNumber = process.env.PORT || 4000
 app.listen(portNumber);
-console.log(`Web server started and running at http://localhost:${portNumber}`);
 const prompt = "Type stop to shutdown the server:";
 console.log(prompt);
 
@@ -59,14 +54,14 @@ app.get("/buyShare", (request, response) => {
     const variables = {
         link: `http://localhost:${portNumber}/buyShare`
     }
-    response.render("buyShare", variables);
+    response.render("buyShare");
 });
 
 app.get("/sellShare", (request, response) => {
     const variables = {
         link: `http://localhost:${portNumber}/sellShare`
     }
-    response.render("sellShare", variables);
+    response.render("sellShare");
 });
 
 
